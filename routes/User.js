@@ -93,4 +93,27 @@ router.get("/account/", async (req, res) => {
   }
 });
 
+
+// store string on database 
+router.get("/database/" , async (req, res) => {
+
+  try {
+    // Extract data from request body
+    const { data } = req.body;
+
+    // Create new data object
+    const newData = new data({
+      data });
+
+    // Save data to database
+    await newData.save();
+
+    res.status(201).json({ message: 'Data stored successfully' });
+  } catch (error) {
+    console.error('Error storing data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 module.exports = router;
